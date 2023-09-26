@@ -21,10 +21,10 @@ public class EventController {
     public String renderEvents(Model model) {
         model.addAttribute("title", "All Events");
         model.addAttribute("events", events);
-//        events.add("Astronomy Festival");
-//        events.add("Premier Designer Event");
-//        events.add("Harvest Festival");
-//        events.add("Glass Pumpkin Patch");
+        events.put("Astronomy Festival", "Let's look at the stars!");
+        events.put("Premier Designer Event", "Come check out today's new styles (and cocktails)!");
+        events.put("Harvest Festival", "Korean Harvest Festival - welcome autumn with a party!");
+        events.put("Glass Pumpkin Patch", "A pumpkin patch - of glass pumpkins!");
         return "events/index";
     }
 
