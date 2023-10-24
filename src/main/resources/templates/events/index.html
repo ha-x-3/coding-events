@@ -10,42 +10,57 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Contact Email</th>
                 <th>Address</th>
-                <th>Image</th>
+                <th>Event Type</th>
+                <th>RSVP Needed</th>
+                <th>Max Number Of Attendees</th>
+                <th>Date of Event</th>
             </tr>
         </thead>
-<!--        <tr th:each="event : ${events}">-->
-<!--            <td th:text="${event.key}"></td>-->
-<!--            <td th:text="${event.value}"></td>-->
+        <tr th:each="event : ${events}">
+            <td th:text="${event.id}"></td>
+            <td th:text="${event.name}"></td>
+            <td th:text="${event.description}"></td>
+            <td th:text="${event.contactEmail}"></td>
+            <td th:text="${event.address}"></td>
+            <td th:text="${event.type.displayName}"></td>
+            <td th:text="${event.rsvp}"></td>
+            <td th:text="${event.numberOfAttendees}"></td>
+            <td th:text="${event.dateOfEvent}"></td>
+            <td><a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a></td>
+        </tr>
+<!--        <tr>-->
+<!--            <td th:text="${events.get(0).id}"></td>-->
+<!--            <td th:text="${events.get(0).name}"></td>-->
+<!--            <td th:text="${events.get(0).description}"></td>-->
 <!--            <td th:replace="~{fragments :: address}"></td>-->
 <!--            <td th:replace="~{fragments :: astroImg}"></td>-->
 <!--        </tr>-->
-        <tr>
-            <td th:text="${events.keySet().toArray()[0]}"></td>
-            <td th:text="${events.values().toArray()[0]}"></td>
-            <td th:replace="~{fragments :: address}"></td>
-            <td th:replace="~{fragments :: designerImg}"></td>
-        </tr>
-        <tr>
-            <td th:text="${events.keySet().toArray()[1]}"></td>
-            <td th:text="${events.values().toArray()[1]}"></td>
-            <td th:replace="~{fragments :: address}"></td>
-            <td th:replace="~{fragments :: festivalImg}"></td>
-        </tr>
-        <tr>
-            <td th:text="${events.keySet().toArray()[2]}"></td>
-            <td th:text="${events.values().toArray()[2]}"></td>
-            <td th:replace="~{fragments :: address}"></td>
-            <td th:replace="~{fragments :: pumpkinImg}"></td>
-        </tr>
-        <tr>
-            <td th:text="${events.keySet().toArray()[3]}"></td>
-            <td th:text="${events.values().toArray()[3]}"></td>
-            <td th:replace="~{fragments :: address}"></td>
-            <td th:replace="~{fragments :: astroImg}"></td>
-        </tr>
+<!--        <tr>-->
+<!--            <td th:text="${events.get(1).id}"></td>-->
+<!--            <td th:text="${events.get(1).name}"></td>-->
+<!--            <td th:text="${events.get(1).description}"></td>-->
+<!--            <td th:replace="~{fragments :: address}"></td>-->
+<!--            <td th:replace="~{fragments :: designerImg}"></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td th:text="${events.get(2).id}"></td>-->
+<!--            <td th:text="${events.get(2).name}"></td>-->
+<!--            <td th:text="${events.get(2).description}"></td>-->
+<!--            <td th:replace="~{fragments :: address}"></td>-->
+<!--            <td th:replace="~{fragments :: festivalImg}"></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td th:text="${events.get(3).id}"></td>-->
+<!--            <td th:text="${events.get(3).name}"></td>-->
+<!--            <td th:text="${events.get(3).description}"></td>-->
+<!--            <td th:replace="~{fragments :: address}"></td>-->
+<!--            <td th:replace="~{fragments :: pumpkinImg}"></td>-->
+<!--        </tr>-->
     </table>
 </body>
 </html>
