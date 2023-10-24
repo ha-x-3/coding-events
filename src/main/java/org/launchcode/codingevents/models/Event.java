@@ -1,10 +1,8 @@
 package org.launchcode.codingevents.models;
 
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Event extends AbstractEntity {
@@ -32,9 +30,11 @@ public class Event extends AbstractEntity {
     @NotBlank(message = "Event must be scheduled in the future.")
     private String dateOfEvent;
 
-    private EventType type;
+    @ManyToOne
+    @NotNull(message = "Category is required.")
+    private EventCategory eventCategory;
 
-    public Event(String name, String description, String contactEmail, String address, String rsvp, int numberOfAttendees, String dateOfEvent,EventType type) {
+    public Event(String name, String description, String contactEmail, String address, String rsvp, int numberOfAttendees, String dateOfEvent,EventCategory eventCategory) {
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
@@ -42,7 +42,7 @@ public class Event extends AbstractEntity {
         this.rsvp = rsvp;
         this.numberOfAttendees = numberOfAttendees;
         this.dateOfEvent = dateOfEvent;
-        this.type = type;
+        this.eventCategory = eventCategory;
     }
 
     public Event() {    }
@@ -103,19 +103,17 @@ public class Event extends AbstractEntity {
         this.dateOfEvent = dateOfEvent;
     }
 
-    public EventType getType() {
-        return type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     @Override
     public String toString() {
         return name + ": " + description;
     }
-
-
 
 }
