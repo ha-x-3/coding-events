@@ -9,30 +9,42 @@
 
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Contact Email</th>
-                <th>Address</th>
-                <th>Event Category</th>
-                <th>RSVP Needed</th>
-                <th>Max Number Of Attendees</th>
-                <th>Date of Event</th>
-            </tr>
+        <tr>
+            <th>Event Name</th>
+        </tr>
         </thead>
         <tr th:each="event : ${events}">
-            <td th:text="${event.id}"></td>
-            <td th:text="${event.name}"></td>
-            <td th:text="${event.eventDetails.description}"></td>
-            <td th:text="${event.eventDetails.contactEmail}"></td>
-            <td th:text="${event.eventDetails.address}"></td>
-            <td th:text="${event.eventCategory.name}"></td>
-            <td th:text="${event.eventDetails.rsvp}"></td>
-            <td th:text="${event.eventDetails.numberOfAttendees}"></td>
-            <td th:text="${event.eventDetails.dateOfEvent}"></td>
-            <td><a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a></td>
+            <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
         </tr>
+    </table>
+
+
+<!--    <table class="table table-striped">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>ID</th>-->
+<!--                <th>Name</th>-->
+<!--                <th>Description</th>-->
+<!--                <th>Contact Email</th>-->
+<!--                <th>Address</th>-->
+<!--                <th>Event Category</th>-->
+<!--                <th>RSVP Needed</th>-->
+<!--                <th>Max Number Of Attendees</th>-->
+<!--                <th>Date of Event</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tr th:each="event : ${events}">-->
+<!--            <td th:text="${event.id}"></td>-->
+<!--            <td th:text="${event.name}"></td>-->
+<!--            <td th:text="${event.eventDetails.description}"></td>-->
+<!--            <td th:text="${event.eventDetails.contactEmail}"></td>-->
+<!--            <td th:text="${event.eventDetails.address}"></td>-->
+<!--            <td th:text="${event.eventCategory.name}"></td>-->
+<!--            <td th:text="${event.eventDetails.rsvp}"></td>-->
+<!--            <td th:text="${event.eventDetails.numberOfAttendees}"></td>-->
+<!--            <td th:text="${event.eventDetails.dateOfEvent}"></td>-->
+<!--            <td><a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a></td>-->
+<!--        </tr>-->
 <!--        <tr>-->
 <!--            <td th:text="${events.get(0).id}"></td>-->
 <!--            <td th:text="${events.get(0).name}"></td>-->
@@ -61,6 +73,6 @@
 <!--            <td th:replace="~{fragments :: address}"></td>-->
 <!--            <td th:replace="~{fragments :: pumpkinImg}"></td>-->
 <!--        </tr>-->
-    </table>
+<!--    </table>-->
 </body>
 </html>
