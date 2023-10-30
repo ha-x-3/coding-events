@@ -112,7 +112,7 @@ public class EventController {
             model.addAttribute("title", event.getName() + " Details");
             model.addAttribute("event", event);
         }
-        return "event/detail";
+        return "events/detail";
     }
 
 }
