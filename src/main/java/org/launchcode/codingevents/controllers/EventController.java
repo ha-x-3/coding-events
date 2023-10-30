@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,22 @@ public class EventController {
     private EventCategoryRepository eventCategoryRepository;
 
     @GetMapping
-    public String renderEvents(Model model) {
-        model.addAttribute("title", "All Events");
-        model.addAttribute("events", eventRepository.findAll());
+    public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
+
+        if (categoryId == null) {
+            model.addAttribute("title", "All Events");
+            model.addAttribute("events", eventRepository.findAll());
+        } else {
+            Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
+            if (result.isEmpty()) {
+                model.addAttribute("title", "Invalid Category ID: " + categoryId);
+            } else {
+                EventCategory category = result.get();
+                model.addAttribute("title", "Events in category: " + category.getName());
+                model.addAttribute("events", category.getEvents());
+            }
+        }
+
         return "events/index";
     }
 
@@ -45,6 +59,7 @@ public class EventController {
             model.addAttribute("categories", eventCategoryRepository.findAll());
             return "events/create";
         }
+
         eventRepository.save(newEvent);
         return "redirect:/events";
     }
@@ -81,7 +96,7 @@ public class EventController {
     public String processEditForm(Model model, int eventId, String name, String description) {
         Event event = eventRepository.findById(eventId).get();
         event.setName(name);
-        event.setDescription(description);
+        event.getEventDetails().setDescription(description);
         eventRepository.save(event);
         return "redirect:/events";
     }

@@ -14,21 +14,21 @@
         </div>
         <div class="form-group">
             <label>Description
-                <input th:field="${event.description}" type="text" class="form-control"/>
+                <input th:field="${event.eventDetails.description}" type="text" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.description}"></p>
+            <p class="error" th:errors="${event.eventDetails.description}"></p>
         </div>
         <div class="form-group">
             <label>Contact Email
-                <input th:field="${event.contactEmail}" type="email" class="form-control"/>
+                <input th:field="${event.eventDetails.contactEmail}" type="email" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.contactEmail}"></p>
+            <p class="error" th:errors="${event.eventDetails.contactEmail}"></p>
         </div>
         <div class="form-group">
             <label>Event Address
-                <input th:field="${event.address}" type="text" class="form-control"/>
+                <input th:field="${event.eventDetails.address}" type="text" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.address}"></p>
+            <p class="error" th:errors="${event.eventDetails.address}"></p>
         </div>
         <div class="form-group">
             <label>Event Category
@@ -38,26 +38,26 @@
                             th:text="${eventCategory.name}">
                     </option>
                 </select>
-                <p class="error" th:errors="${event.eventCategory}"></p>
             </label>
+            <p class="error" th:errors="${event.eventCategory}"></p>
         </div>
         <div class="form-group">
             <label>RSVPs Sent For This Event
-                <input th:field="${event.rsvp}" type="text" class="form-control"/>
+                <input th:field="${event.eventDetails.rsvp}" type="text" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.rsvp}"></p>
+            <p class="error" th:errors="${event.eventDetails.rsvp}"></p>
         </div>
         <div class="form-group">
             <label>Maximum Number of Attendees
-                <input th:field="${event.numberOfAttendees}" type="number" class="form-control"/>
+                <input th:field="${event.eventDetails.numberOfAttendees}" type="number" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.numberOfAttendees}"></p>
+            <p class="error" th:errors="${event.eventDetails.numberOfAttendees}"></p>
         </div>
         <div class="form-group">
             <label>Date of Event
-                <input th:field="${event.dateOfEvent}" type="date" class="form-control"/>
+                <input th:field="${event.eventDetails.dateOfEvent}" type="date" class="form-control"/>
             </label>
-            <p class="error" th:errors="${event.dateOfEvent}"></p>
+            <p class="error" th:errors="${event.eventDetails.dateOfEvent}"></p>
         </div>
         <div class="form-group">
             <input type="submit" value="Create Event" class="btn btn-success"/>
