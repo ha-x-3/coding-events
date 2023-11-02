@@ -3,8 +3,11 @@ package org.launchcode.codingevents.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
+import org.launchcode.codingevents.data.TagRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventCategory;
+import org.launchcode.codingevents.models.Tag;
+import org.launchcode.codingevents.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,9 @@ public class EventController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @GetMapping
     public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
@@ -72,10 +78,10 @@ public class EventController {
     }
 
     @PostMapping("delete")
-    public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
+    public String processDeleteEventsForm(@RequestParam(required = false) Integer[] eventIds) {
 
         if (eventIds != null) {
-            for(int id : eventIds) {
+            for(Integer id : eventIds) {
                 eventRepository.deleteById(id);
             }
         }
@@ -84,7 +90,7 @@ public class EventController {
     }
 
     @GetMapping("edit/{eventId}")
-    public String displayEditForm(Model model, @PathVariable int eventId) {
+    public String displayEditForm(Model model, @PathVariable Integer eventId) {
         Event event = eventRepository.findById(eventId).get();
         model.addAttribute("event", event);
         String title = "Edit Event " + event.getName() + " (id=" + event.getId() + ")";
@@ -93,7 +99,7 @@ public class EventController {
     }
 
     @PostMapping("edit")
-    public String processEditForm(Model model, int eventId, String name, String description) {
+    public String processEditForm(Model model, Integer eventId, String name, String description) {
         Event event = eventRepository.findById(eventId).get();
         event.setName(name);
         event.getEventDetails().setDescription(description);
@@ -111,8 +117,35 @@ public class EventController {
             Event event = result.get();
             model.addAttribute("title", event.getName() + " Details");
             model.addAttribute("event", event);
+            model.addAttribute("tags", event.getTags());
         }
         return "events/detail";
+    }
+
+    @GetMapping("add-tag")
+    public String displayAddTagForm(@RequestParam Integer eventId, Model model) {
+        Optional<Event> result = eventRepository.findById(eventId);
+        Event event = result.get();
+        model.addAttribute("title", "Add Tag to : " + event.getName());
+        model.addAttribute("tags", tagRepository.findAll());
+        EventTagDTO eventTag = new EventTagDTO();
+        eventTag.setEvent(event);
+        model.addAttribute("eventTag", eventTag);
+        return "events/add-tag.html";
+    }
+
+    @PostMapping("add-tag")
+    public String processAddTagForm(@ModelAttribute @Valid EventTagDTO eventTag, Errors errors, Model model) {
+        if (!errors.hasErrors()) {
+            Event event = eventTag.getEvent();
+            Tag tag = eventTag.getTag();
+            if (!event.getTags().contains(tag)) {
+                event.addTag(tag);
+                eventRepository.save(event);
+            }
+            return "redirect:detail?eventId=" + event.getId();
+        }
+        return "redirect:add-tag";
     }
 
 }
